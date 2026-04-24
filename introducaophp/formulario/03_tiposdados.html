@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Formulário Básico</title>
+</head>
+
+<body>
+
+<form method="POST" action="03_tiposdados.php">
+
+    Nome do Técnico:
+    <input type="text" name="nometecnico" required><br><br>
+
+    Nacionalidade: <input type="text" name="nacionalidade" required><br><br>
+
+   Salário (em mil R$):
+        <input type="number" name="salario" min="1000" max="2000000" step="100" required><br><br>
+    Tempo de contrato (anos):
+    <input type="number" name="tempocontrato" min="1" max="5" required><br><br>
+
+    Estilo de jogo:<br>
+    <input type="checkbox" name="estilojogo[]" value="ofensivo"> Ofensivo<br>
+    <input type="checkbox" name="estilojogo[]" value="defensivo"> Defensivo<br>
+    <input type="checkbox" name="estilojogo[]" value="equilibrado"> Equilibrado<br><br>
+
+    Formação:
+        <select name="formacao" required>
+    <option value="">Selecione</option>
+    <option value="cursos_basicos">Cursos básicos</option>
+    <option value="licenca_cbf">Licença CBF</option>
+    <option value="licenca_uefa">Licença UEFA</option>
+        </select><br><br>
+
+    Experiência em (anos): <input type="number" name="experiencia" min="0" max="50" step="1"><br><br>
+
+        Escolha o Time (Série A 2026):
+        <select name="time" required>
+        <option value="">Selecione um time</option>
+        <option value="athletico_pr">Athletico-PR</option>
+        <option value="atletico_mg">Atletico-MG</option>
+        <option value="bahia">Bahia</option>
+        <option value="botafogo">Botafogo</option>
+        <option value="corinthians">Corinthians</option>
+        <option value="coritiba">Coritiba</option>
+        <option value="cruzeiro">Cruzeiro</option>
+        <option value="chapecoense">Chapecoense</option>
+        <option value="flamengo">Flamengo</option>
+        <option value="fluminense">Fluminense</option>
+        <option value="gremio">Grêmio</option>
+        <option value="internacional">Internacional</option>
+        <option value="mirassol">Mirassol</option>
+        <option value="palmeiras">Palmeiras</option>
+        <option value="red_bull_bragantino">Red Bull Bragantino</option>
+        <option value="remo">Remo</option>
+        <option value="santos">Santos</option>
+        <option value="sao_paulo">São Paulo</option>
+        <option value="vasco">Vasco da Gama</option>
+        <option value="vitoria">Vitória</option>
+    </select><br><br>
+
+
+    <button type="submit">Firmar Contrato</button>
+
+</form>
+
+</body>
+
+</html>
