@@ -1,19 +1,29 @@
 <?php
-require_once '08conta.php';
-require_once '08pessoafisica.php';
-require_once '08pessoajuridica.php';
+require_once ('08conta.php');
+require_once ('08pessoafisica.php');
+require_once ('08pessoajuridica.php');
+require_once ('08itemExtrato.php');
 
-    
-$poupanca = new Poupanca("0002-7", "85588-88", 755.54, 0.0055);
-$poupanca->deposito(1500.00);
 
-$especial = new Especial("0055-2", "75588-42", 2300.25, 5000.00);
-$especial->deposito(1500.00);
+$tipo = $_POST['tipo_conta'];
+$agencia = $_POST['agencia'];
+$conta = $_POST['conta'];
+$saldo = (float)$_POST['saldo_inicial'];
 
-$pessoaFisica = new PessoaFisica("João Silva", "123.456.789-01", $poupanca);
-$pessoaJuridica = new PessoaJuridica("Atacado das Embalagens", "12.345.678/0001-90", $especial);
+$reajuste = !empty($_POST['reajuste']) ? (float)$_POST['reajuste'] : 0;
+$limite = !empty($_POST['limite']) ? (float)$_POST['limite'] : 0;
 
-$pessoaFisica->imprime();
-$pessoaJuridica->imprime();
+
+
+if ($tipo === "poupanca") {
+    $contaObj = new Poupanca($agencia, $conta, $saldo, $reajuste);
+} else {
+    $contaObj = new Especial($agencia, $conta, $saldo, $limite);
+}
+
+$contaobj = new Especial($agencia, $conta, $saldo, $limite);
+
+echo "<h2>DADOS DA CONTA</h2>";
+$contaobj->imprimeExtrato();
 
 

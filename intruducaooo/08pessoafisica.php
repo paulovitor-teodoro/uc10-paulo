@@ -1,19 +1,33 @@
 <?php
-   require_once("08conta.php");
+   class Poupanca extends Conta{
+        private float $reajuste;
+        
+        public function __construct(string $agencia, string $conta, float $saldoInicial, float $reajuste){
+        parent:: __construct("Poupança", $agencia, $conta, $saldoInicial);
+        $this-> deposito($saldoInicial); // Registra o depósito inicial como movimentação
+        $this -> reajuste = $reajuste;
 
-   class PessoaFisica{
-    private string $nome;
-    private string $cpf;
-    private Conta $conta;
+        //parent::incluiMovimentacao(new ItemExtrato("Abertura da Conta", $saldoInicial));
+        }
 
-    public function __construct(string $nome, string $cpf, Conta $conta){
-        $this -> nome = $nome;
-        $this -> cpf = $cpf;
-        $this -> conta = $conta;
+       public function calculaSaldo(): float
+      {
+        return $this -> saldo + ($this -> saldo * $this -> reajuste);
+      }
     }
 
-    public function imprime(): void{
-    echo "CONTA: " .mb_strtoupper($this->conta->getTipoDeConta(), 'UTF-8') . " - "   . "Agência: " . $this->conta->getAgencia() .  " - " . "Conta: " . $this->conta->getConta() . " - " . "Saldo: R$ " . number_format($this->conta->calculaSaldo(), 2, ',', '.') . "<br>";
-}
-   }
+    class Especial extends Conta{
+        private float $limiteEspecial;
+        public function __construct(string $agencia, string $conta, float $saldoInicial, float $limiteEspecial){
+        parent:: __construct("Especial", $agencia, $conta, $saldoInicial);
+
+        $this-> deposito($saldoInicial); // Registra o depósito inicial como movimentação
+        $this -> limiteEspecial = $limiteEspecial;
+        //parent:: incluiMovimentacao(new ItemExtrato("Abertura da Conta", $saldoInicial));
+        }
+
+       public function calculaSaldo(): float{
+        return $this -> saldo + $this -> limiteEspecial;
+       }
+    }
 ?>

@@ -1,10 +1,13 @@
 <?php
 
+
 abstract class Conta{
     private string $tipoDeConta;
     private string $agencia;
     private string $conta;
     protected float $saldo;
+
+    private $movimentacao = [];
 
     public function __construct(string $tipoDeConta, string $agencia, string $conta, float $saldo){
         $this -> tipoDeConta = $tipoDeConta;
@@ -14,11 +17,15 @@ abstract class Conta{
     }
 
     public function imprimeExtrato(): void {
-        echo $this-> tipoDeConta . ' - ' . $this-> agencia . ' - ' . $this-> conta . ' - ' . $this-> saldo;
+        echo 'Conta: ' . $this-> tipoDeConta . ' - Agência: ' . $this-> agencia . ' - Conta: ' . $this-> conta . ' - Saldo: ' . $this-> saldo;
+        foreach ($this-> movimentacao as $itemExtrato){
+            echo "<br>" . $itemExtrato-> imprimeItem();
+        }
     }
 
     public function deposito(float $valor): void {
-        $this-> saldo += $valor;
+        $this-> saldo = $this-> saldo + $valor;
+        $this-> incluiMovimentacao(new ItemExtrato("Depósito", $valor));
     }
 
     public function saque(float $valor): void{
@@ -26,11 +33,16 @@ abstract class Conta{
         echo "Saldo insuficiente para saque.";
        } else {
         $this-> saldo -= $valor;
+        $this-> incluiMovimentacao(new ItemExtrato("Saque", $valor));
        }
     }
 
     public function saldo(): float{
         return $this-> saldo;
+    }
+
+    public function incluiMovimentacao(ItemExtrato $item){
+        $this->movimentacao[] = $item;
     }
 
     public function getTipoDeConta(): string
@@ -55,31 +67,3 @@ abstract class Conta{
 
    abstract public function calculaSaldo(): float;
 }
-
-    class Poupanca extends Conta{
-        private float $reajuste;
-        
-        public function __construct(string $agencia, string $conta, float $saldoInicial, float $reajuste){
-        parent::__construct("Poupança", $agencia, $conta, $saldoInicial);
-        $this -> reajuste = $reajuste;
-        }
-
-       public function calculaSaldo(): float
-      {
-        return $this -> saldo + ($this -> saldo * $this -> reajuste);
-      }
-    }
-
-   class Especial extends Conta{
-        private float $limiteEspecial;
-        public function __construct(string $agencia, string $conta, float $saldoInicial, float $limiteEspecial){
-        
-        parent:: __construct("Especial", $agencia, $conta, $saldoInicial);
-        $this -> limiteEspecial = $limiteEspecial;
-
-        }
-
-       public function calculaSaldo(): float{
-        return $this -> saldo + $this -> limiteEspecial;
-       }
-    }

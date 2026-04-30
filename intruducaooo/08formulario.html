@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro de Conta Bancária</title>
+</head>
+<body>
+    <h2>Cadastro de Conta Bancária</h2>
+    <form method="post" action="08index.php">
+        Tipo de Conta:
+      <select name="tipo_conta" required>
+        <option value="" disabled selected>Escolha uma opção de conta</option>
+        <option value="poupanca">Poupança</option>
+        <option value="especial">Especial</option>
+        </select><br><br>
+        Agência: <input type="text" name="agencia"><br><br>
+        Conta: <input type="text" name="conta"><br><br>
+
+        Saldo Inicial: <input type="number" name="saldo_inicial" step="0.01"><br><br>
+
+        Reajuste(%): <input type="number" name="reajuste" step="0.01"><br><br>
+        Limite(Especial): <input type="number" name="limite" step="0.01"><br><br>
+        <button type="submit">Enviar</button> 
+    </form>
+</body>
+</html>
