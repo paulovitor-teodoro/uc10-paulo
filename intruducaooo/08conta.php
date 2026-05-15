@@ -7,7 +7,7 @@ abstract class Conta{
     private string $conta;
     protected float $saldo;
 
-    private $movimentacao = [];
+    private array $movimentacao = [];
 
     public function __construct(string $tipoDeConta, string $agencia, string $conta, float $saldo){
         $this -> tipoDeConta = $tipoDeConta;
