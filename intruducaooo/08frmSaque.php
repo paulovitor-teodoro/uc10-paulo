@@ -20,7 +20,7 @@ if(isset($_COOKIE['ultimaConta'])){
 
 <head>
     <meta charset="UTF-8">
-    <title>Saque</title>
+    <title>Depósito</title>
 </head>
 
 <body>
