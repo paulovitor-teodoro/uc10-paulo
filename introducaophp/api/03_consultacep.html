@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Consulta CEP</title>
+</head>
+<body>
+    <div class="container">
+        <h1>Consulta de CEP</h1>
+        <input type="text" id="cep" placeholder="Digite o CEP" maxlength="8">
+        <button onclick="consultarCEP()">Consultar</button>
+        <div id="resultado" class="result" style="display:none;"></div>
+    </div>
+    <script>
+        async function consultarCEP(){
+            let cep = document.getElementById("cep").value;
+
+             let url = `https://viacep.com.br/ws/${cep}/json/`;
+
+            let resposta = await fetch(url);
+
+            let dados = await resposta.json();
+
+            let resultado = document.getElementById("resultado");
+
+            if(dados.erro){
+                resultado.style.display = "block";
+                resultado.innerHTML = "CEP não encontrado!";
+            } else {
+
+                resultado.style.display = "block";
+
+                resultado.innerHTML = `
+                    <h3>Endereço</h3>
+
+                    <p><strong>CEP:</strong> ${dados.cep}</p>
+
+                    <p><strong>Rua:</strong> ${dados.logradouro}</p>
+
+                    <p><strong>Bairro:</strong> ${dados.bairro}</p>
+
+                    <p><strong>Cidade:</strong> ${dados.localidade}</p>
+
+                    <p><strong>Estado:</strong> ${dados.uf}</p>
+                `;
+            }
+        }
+     </script>
+</body>
+</html>
