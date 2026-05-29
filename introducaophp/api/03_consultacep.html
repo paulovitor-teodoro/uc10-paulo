@@ -6,13 +6,13 @@
     <title>Consulta CEP</title>
 </head>
 <body>
-    <div class="container">
+    <!-- <div class="container">
         <h1>Consulta de CEP</h1>
         <input type="text" id="cep" placeholder="Digite o CEP" maxlength="8">
         <button onclick="consultarCEP()">Consultar</button>
         <div id="resultado" class="result" style="display:none;"></div>
-    </div>
-    <script>
+    </div> -->
+    <!-- <script>
         async function consultarCEP(){
             let cep = document.getElementById("cep").value;
 
@@ -24,7 +24,8 @@
 
             let resultado = document.getElementById("resultado");
 
-            if(dados.erro){
+            if(dados.erro)
+            {
                 resultado.style.display = "block";
                 resultado.innerHTML = "CEP não encontrado!";
             } else {
@@ -46,6 +47,26 @@
                 `;
             }
         }
-     </script>
+     </script> -->
+
+     <div class="container">
+        <h1>Consulta de CEP</h1>
+        
+        <form action="03_consultacep.php" method="POST">
+            
+            <input type="text" 
+                   name="cep" 
+                   id="cep" 
+                   placeholder="Digite o CEP (apenas números)" 
+                   maxlength="8" 
+                   pattern="\d{8}" 
+                   title="O CEP deve conter exatamente 8 números." 
+                   required>
+                   
+            <button type="submit">Consultar</button>
+        </form>
+    </div>
+     
+
 </body>
 </html>
