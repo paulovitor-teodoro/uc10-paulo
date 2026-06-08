@@ -1,0 +1,33 @@
+<?php
+$url = "https://servicodados.ibge.gov.br/api/v1/localidades/municipios?orderBy=nome";
+$resposta = file_get_contents($url);
+
+if ($resposta === false) {
+    die("Erro ao consultar a API do IBGE.");
+}
+
+$municipios = json_decode($resposta, true);
+?>
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Consulta de Tempo Brasil</title>
+    
+</head>
+<body>
+   <h1>Consulta de Tempo Brasil</h1>
+    <form action="06_consultatempobrasil.php" method="post">
+        <label for="cidade">Selecione um municipio</label>
+        <select name="cidade" id="cidade">
+            <?php foreach($municipios as $municipio): ?>
+            <option value="<?= $municipio['nome']?>">
+            <?= $municipio['nome']?>
+            </option>
+            <?php endforeach; ?>
+        </select>
+        <button type="submit">Consultar</button>
+    </form>
+    </body>
+</html>
