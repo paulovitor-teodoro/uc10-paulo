@@ -29,9 +29,11 @@ $municipios = json_decode($resposta, true);
 
         <select name="cidade" id="cidade">
             <?php foreach ($municipios as $municipio): ?>
-                <option value="<?= $municipio['nome'] ?>|<?= $municipio['microrregiao']['mesorregiao']['UF']['sigla'] ?>">
-                <?= $municipio['nome'] ?> - <?= $municipio['microrregiao']['mesorregiao']['UF']['sigla'] ?>
-            </option>
+                <option value="<?= $municipio['nome'] ?>|<?= $municipio['microrregiao']['mesorregiao']['UF']['sigla'] ?>"
+                <?= (isset($_POST['cidade']) && $_POST['cidade'] == $municipio['nome'].'|'.$municipio['microrregiao']['mesorregiao']['UF']['sigla']) ? 'selected' : '' ?>
+                >
+    <?= $municipio['nome'] ?> - <?= $municipio['microrregiao']['mesorregiao']['UF']['sigla'] ?>
+</option>
             <?php endforeach; ?>
         </select>
 
@@ -43,7 +45,8 @@ $municipios = json_decode($resposta, true);
     <?php
 
     if (isset($_POST['cidade'])) {
-
+       
+        
         list($cidade, $uf) = explode('|', $_POST['cidade']);
 
         echo "<h2>Cidade selecionada: {$cidade}</h2>";
@@ -85,15 +88,13 @@ $municipios = json_decode($resposta, true);
 
                     echo "<strong>Município:</strong> " . $cidade . " - " . $uf . "<br>";
                     echo "<strong>UF:</strong> " . $uf . "<br>";
-                    echo "<strong>Latitude:</strong> " . ($dadosClima['coord']['lat'] ?? 'N/A') . "<br>";
-                    echo "<strong>Longitude:</strong> " . ($dadosClima['coord']['lon'] ?? 'N/A') . "<br>";
-                    
+                    echo "<strong>Latitude:</strong> " . $latitude . "<br>";
+                    echo "<strong>Longitude:</strong> " . $longitude . "<br>";
 
-                    echo "<strong>Cidade:</strong> " . ($dadosClima['name'] ?? 'N/A') . "<br>";
-                    echo "<strong>Temperatura:</strong> " . ($dadosClima['main']['temp'] ?? 'N/A') . " °C<br>";
+                    echo "<strong>Temperatura Atual:</strong> " . ($dadosClima['main']['temp'] ?? 'N/A') . " °C<br>";
                     echo "<strong>Sensação Térmica:</strong> " . ($dadosClima['main']['feels_like'] ?? 'N/A') . " °C<br>";
-                    echo "<strong>Umidade:</strong> " . ($dadosClima['main']['humidity'] ?? 'N/A') . "%<br>";
-                    echo "<strong>Condição:</strong> " . ($dadosClima['weather'][0]['description'] ?? 'N/A') . "<br>";
+                    echo "<strong>Umidade do Ar:</strong> " . ($dadosClima['main']['humidity'] ?? 'N/A') . "%<br>";
+                    echo "<strong>Condição Climática:</strong> " . ($dadosClima['weather'][0]['description'] ?? 'N/A') . "<br>";
                     echo "<strong>Velocidade do Vento:</strong> ". ($dadosClima['wind']['speed'] ?? 'N/A'). " m/s<br>";
 
                 } else {
